@@ -9,3 +9,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+jwt:
+  key: ${JWT_KEY:B7865A13DF9E2D1DAB9CCF33D44AB}
+  access-token-expiration: 3600000
+  refresh-token-expiration: 86400000

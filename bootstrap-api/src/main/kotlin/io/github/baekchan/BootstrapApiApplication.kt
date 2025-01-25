@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import
     scanBasePackageClasses = [BootstrapApiApplication::class]
 )
 @Import(AppConfig::class, JPAConfig::class)
-//@ConfigurationPropertiesScan
+@ConfigurationPropertiesScan
 class BootstrapApiApplication
 
 fun main(args: Array<String>) {

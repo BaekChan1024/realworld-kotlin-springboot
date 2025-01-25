@@ -4,5 +4,5 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-@ComponentScan(basePackages = ["io.github.baekchan.user.port.input"])
+@ComponentScan(basePackages = ["io.github.baekchan.user.port.in"])
 class UserConfig
