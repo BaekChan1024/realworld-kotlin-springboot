@@ -23,8 +23,14 @@ class AuthenticationService(
         return tokenUtils.generate(userDetails)
     }
 
-    fun generateToken(email: String, password: String): String {
-        val userDetails = customUserDetailsService.loadUserByUsername(email)
-        return tokenUtils.generate(userDetails)
+    fun generateToken(id: String, password: String): String {
+        val userDetails = customUserDetailsService.loadUserByUsername(id)
+        val userDetailsInfo = mapOf(
+            "username" to userDetails.username,
+            "email" to userDetails.email,
+            "bio" to (userDetails.bio?: "Default"),
+            "image" to (userDetails.image?: "Default" ),
+        )
+        return tokenUtils.generate(userDetails, userDetailsInfo)
     }
 }

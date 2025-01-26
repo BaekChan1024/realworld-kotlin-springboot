@@ -24,8 +24,8 @@ class UsersControllerImpl(
             username = body.user.username,
             password = passwordEncoder.encode(body.user.password),
         )
-        userCommandUseCase.register(userDomain)
-        val token = authenticationService.generateToken(userDomain.email, userDomain.password)
+        val userId = userCommandUseCase.register(userDomain)
+        val token = authenticationService.generateToken(userId.id.toString(), userDomain.password)
         return ResponseEntity.ok(
             Login200Response(
                 User(

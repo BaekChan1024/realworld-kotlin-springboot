@@ -17,11 +17,11 @@ class TokenUtils(
     private val algorithm = Algorithm.HMAC256(jwtProperties.key)
 
     fun generate(
-        userDetails: UserDetails,
+        userDetails: CustomUserDetails,
         additionalClaims: Map<String, Any> = emptyMap()
     ): String {
         val jwtBuilder = JWT.create()
-            .withSubject(userDetails.username)
+            .withSubject(userDetails.id.toString())
             .withIssuedAt(Date())
             .withExpiresAt(Date(System.currentTimeMillis() + jwtProperties.accessTokenExpiration))
 
@@ -32,13 +32,13 @@ class TokenUtils(
         return jwtBuilder.sign(algorithm)
     }
 
-    fun isValid(token: String, userDetails: UserDetails): Boolean {
-        val email = extractEmail(token)
-        return userDetails.username == email && !isExpired(token)
-    }
+//    fun isValid(token: String, userDetails: UserDetails): Boolean {
+//        val id = extractId(token)
+//        return userDetails == id && !isExpired(token)
+//    }
 
 
-    fun extractEmail(token: String): String? {
+    fun extractId(token: String): String? {
         return getAllClaims(token)["sub"]?.asString()
     }
 

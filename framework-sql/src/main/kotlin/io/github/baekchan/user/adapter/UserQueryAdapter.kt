@@ -20,4 +20,15 @@ class UserQueryAdapter(
             email = userEntity.email,
         )
     }
+
+    override fun findById(id: UserId): UserDomain {
+        val userEntity = userRepository.findById(id.id).orElseThrow { RuntimeException("exception") }
+
+        return UserDomain(
+            id = UserId(userEntity.id),
+            username = userEntity.username,
+            password = userEntity.password,
+            email = userEntity.email,
+        )
+    }
 }

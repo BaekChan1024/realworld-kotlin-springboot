@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
@@ -29,13 +28,12 @@ class JwtAuthenticationFilter(
         }
 
         val jwtToken = authHeader!!.extractTokenValue()
-        val email = tokenValidator.extractEmail(jwtToken)
+        val id = tokenValidator.extractId(jwtToken)
 
-        if (email != null && SecurityContextHolder.getContext().authentication == null) {
-            val foundUser = userDetailsService.loadUserByUsername(email)
-
-            if (tokenValidator.isValid(jwtToken, foundUser))
-                updateContext(foundUser, request)
+        if (id != null && SecurityContextHolder.getContext().authentication == null) {
+            val foundUser = userDetailsService.loadUserByUsername(id)
+            updateContext(foundUser, request, jwtToken)
+//            if (tokenValidator.isValid(jwtToken, foundUser))
 
             filterChain.doFilter(request, response)
         }
@@ -47,9 +45,10 @@ class JwtAuthenticationFilter(
     private fun String.extractTokenValue() =
         this.substringAfter("Bearer ")
 
-    private fun updateContext(foundUser: UserDetails, request: HttpServletRequest) {
+    private fun updateContext(foundUser: CustomUserDetails, request: HttpServletRequest, accessToken: String) {
         val authToken = UsernamePasswordAuthenticationToken(foundUser, null, foundUser.authorities)
-        authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
+        foundUser.accessToken = accessToken
+        WebAuthenticationDetailsSource().buildDetails(request)
         SecurityContextHolder.getContext().authentication = authToken
     }
 
