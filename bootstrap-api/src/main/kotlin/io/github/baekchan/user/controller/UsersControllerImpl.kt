@@ -7,20 +7,22 @@ import io.github.baekchan.user.entity.UserDomain
 import io.github.baekchan.user.usecase.UserCommandUseCase
 import io.github.baekchan.user.usecase.UserQueryUseCase
 import org.springframework.http.ResponseEntity
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class UsersControllerImpl(
     val userCommandUseCase: UserCommandUseCase,
     val userQueryUseCase: UserQueryUseCase,
-    val authenticationService: AuthenticationService
+    val authenticationService: AuthenticationService,
+    val passwordEncoder: PasswordEncoder
 ) : UsersController {
 
     override fun createUser(body: CreateUserRequest): ResponseEntity<Login200Response> {
         val userDomain = UserDomain(
             email = body.user.email,
             username = body.user.username,
-            password = body.user.password,
+            password = passwordEncoder.encode(body.user.password),
         )
         userCommandUseCase.register(userDomain)
         val token = authenticationService.generateToken(userDomain.email, userDomain.password)
