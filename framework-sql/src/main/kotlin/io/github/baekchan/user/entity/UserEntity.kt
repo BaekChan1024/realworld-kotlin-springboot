@@ -3,7 +3,8 @@ package io.github.baekchan.user.entity
 import jakarta.persistence.*
 
 @Entity
-class User(
+@Table(name = "user")
+class UserEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

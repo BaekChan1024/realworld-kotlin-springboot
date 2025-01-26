@@ -12,7 +12,6 @@ version = "1.0-SNAPSHOT"
 
 subprojects {
     apply(plugin = "kotlin")
-    apply(plugin = "kotlin-kapt")
     apply(plugin = "kotlin-spring")
     apply(plugin = "kotlin-jpa")
 

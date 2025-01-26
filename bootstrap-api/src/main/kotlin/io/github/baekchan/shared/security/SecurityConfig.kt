@@ -2,7 +2,6 @@ package io.github.baekchan.shared.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
@@ -12,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.web.DefaultSecurityFilterChain
+import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
@@ -37,22 +36,15 @@ class SecurityConfig(
         config.authenticationManager
 
     @Bean
-    fun securityFilterChain(http: HttpSecurity): DefaultSecurityFilterChain {
-        http
-            .csrf { it.disable() }
-            .authorizeHttpRequests {
-                it
-                    .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/articles/**", "/tags/**").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/profiles/**").permitAll()
-                it.anyRequest().authenticated()
-            }
-            .sessionManagement {
-                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            }
-            .authenticationProvider(authenticationProvider())
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
-
-        return http.build()
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain = http
+    .csrf { it.disable() }
+    .authorizeHttpRequests {
+        it
+            .requestMatchers("/users/**").permitAll()
+            .anyRequest().authenticated()
     }
+    .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+    .authenticationProvider(authenticationProvider())
+    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+    .build()
 }

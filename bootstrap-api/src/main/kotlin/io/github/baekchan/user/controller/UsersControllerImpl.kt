@@ -1,9 +1,7 @@
 package io.github.baekchan.user.controller
 
 import com.io.github.framework.api.controller.UsersController
-import com.io.github.framework.api.controller.models.CreateUserRequest
-import com.io.github.framework.api.controller.models.Login200Response
-import com.io.github.framework.api.controller.models.LoginRequest
+import com.io.github.framework.api.controller.models.*
 import io.github.baekchan.shared.security.AuthenticationService
 import io.github.baekchan.user.entity.UserDomain
 import io.github.baekchan.user.usecase.UserCommandUseCase
@@ -16,7 +14,7 @@ class UsersControllerImpl(
     val userCommandUseCase: UserCommandUseCase,
     val userQueryUseCase: UserQueryUseCase,
     val authenticationService: AuthenticationService
-): UsersController {
+) : UsersController {
 
     override fun createUser(body: CreateUserRequest): ResponseEntity<Login200Response> {
         val userDomain = UserDomain(
@@ -25,9 +23,36 @@ class UsersControllerImpl(
             password = body.user.password,
         )
         userCommandUseCase.register(userDomain)
+        val token = authenticationService.generateToken(userDomain.email, userDomain.password)
+        return ResponseEntity.ok(
+            Login200Response(
+                User(
+                    email = userDomain.email,
+                    token = token,
+                    username = userDomain.username,
+                    bio = userDomain.userDetail?.bio ?: "Default Bio",
+                    image = userDomain.userDetail?.image ?: "Default Image",
+                )
+            )
+        )
     }
 
     override fun login(body: LoginRequest): ResponseEntity<Login200Response> {
-        authenticationService.authenticateAndGenerateToken(body.user.email, body.user.password)
+        val token = authenticationService.authenticateAndGenerateToken(
+            body.user.email,
+            body.user.password
+        )
+        val userDomain = userQueryUseCase.findByEmail(body.user.email)
+        return ResponseEntity.ok(
+            Login200Response(
+                User(
+                    email = userDomain.email,
+                    token= token,
+                    username = userDomain.username,
+                    bio = userDomain.userDetail?.bio ?: "Default Bio",
+                    image = userDomain.userDetail?.image ?: "Default Image",
+                )
+            )
+        )
     }
 }

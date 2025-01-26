@@ -15,10 +15,16 @@ class AuthenticationService(
 ) {
 
     fun authenticateAndGenerateToken(username: String, password: String): String {
+        val authenticationToken = UsernamePasswordAuthenticationToken(username, password)
         authenticationManager.authenticate(
-            UsernamePasswordAuthenticationToken(username, password)
+            authenticationToken
         )
         val userDetails = customUserDetailsService.loadUserByUsername(username)
+        return tokenUtils.generate(userDetails)
+    }
+
+    fun generateToken(email: String, password: String): String {
+        val userDetails = customUserDetailsService.loadUserByUsername(email)
         return tokenUtils.generate(userDetails)
     }
 }

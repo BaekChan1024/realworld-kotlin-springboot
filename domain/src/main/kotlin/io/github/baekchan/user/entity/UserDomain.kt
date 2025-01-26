@@ -7,9 +7,9 @@ class UserDomain (
     val email: String,
     val username: String,
     val password: String,
-    val bio: UserDetail? = null
+    var userDetail: UserDetail? = null
 ) {
 
 }
 
-data class UserId(val id: Long)
+data class UserId(val id: Long?)
