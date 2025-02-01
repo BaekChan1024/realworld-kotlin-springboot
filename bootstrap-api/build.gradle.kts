@@ -2,6 +2,8 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.openapi.generator") version "7.11.0"
+    id("com.epages.restdocs-api-spec") version "0.19.4"
+    id("org.hidetake.swagger.generator") version "2.19.2"
 }
 
 val jar: Jar by tasks
@@ -48,6 +50,12 @@ sourceSets {
 
 tasks.named("compileKotlin") {
     dependsOn(tasks.named("openApiGenerate"))
+}
+
+tasks.register<Copy>("copyOasToSwagger") {
+    delete("$buildDir/resources/main/static/swagger-ui/openapi3.yaml")
+    from("src/main/resources/openapi.yaml")
+    into("$buildDir/resources/main/static/swagger-ui/")
 }
 
 

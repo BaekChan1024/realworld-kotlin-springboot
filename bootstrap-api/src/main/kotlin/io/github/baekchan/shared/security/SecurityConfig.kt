@@ -40,7 +40,12 @@ class SecurityConfig(
     .csrf { it.disable() }
     .authorizeHttpRequests {
         it
-            .requestMatchers("/users/**").permitAll()
+            .requestMatchers(
+                "/users/**",
+                "/swagger-ui/**",
+                "/static/**",
+                "/static/swagger-ui/openapi.yaml"
+            ).permitAll()
             .anyRequest().authenticated()
     }
     .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
