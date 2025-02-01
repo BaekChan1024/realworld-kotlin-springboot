@@ -8,4 +8,6 @@ interface UserQueryUseCase {
     fun findByEmail(email: String): UserDomain
 
     fun findById(id: UserId): UserDomain
+
+    fun findByUsername(username: String): UserDomain
 }

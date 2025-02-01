@@ -43,8 +43,7 @@ class SecurityConfig(
             .requestMatchers(
                 "/users/**",
                 "/swagger-ui/**",
-                "/static/**",
-                "/static/swagger-ui/openapi.yaml"
+                "/static/**"
             ).permitAll()
             .anyRequest().authenticated()
     }

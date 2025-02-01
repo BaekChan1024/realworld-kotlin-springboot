@@ -15,7 +15,7 @@ jar.enabled = false
 openApiGenerate {
     generatorName.set("kotlin-spring")
     library.set("spring-boot")
-    inputSpec.set("$projectDir/src/main/resources/openapi.yaml")
+    inputSpec.set("$projectDir/src/main/resources/static/swagger-ui/openapi.yaml")
     outputDir.set("$buildDir/generated")
     configOptions.set(
         mapOf(

@@ -31,4 +31,15 @@ class UserQueryAdapter(
             email = userEntity.email,
         )
     }
+
+    override fun findByUsername(username: String): UserDomain {
+        val userEntity = userRepository.findByUsername(username) ?: throw RuntimeException("exception")
+
+        return UserDomain(
+            id = UserId(userEntity.id),
+            username = userEntity.username,
+            password = userEntity.password,
+            email = userEntity.email,
+        )
+    }
 }

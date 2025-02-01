@@ -18,4 +18,8 @@ class UserQueryInPort(
     override fun findById(id: UserId): UserDomain {
         return userQueryOutPort.findById(id)
     }
+
+    override fun findByUsername(username: String): UserDomain {
+        return userQueryOutPort.findByUsername(username)
+    }
 }
