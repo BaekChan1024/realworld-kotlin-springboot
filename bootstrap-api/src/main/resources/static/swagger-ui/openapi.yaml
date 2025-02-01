@@ -449,9 +449,7 @@ components:
           format: password
     User:
       required:
-        - bio
         - email
-        - image
         - token
         - username
       type: object

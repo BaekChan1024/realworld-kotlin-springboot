@@ -32,8 +32,8 @@ class UsersControllerImpl(
                     email = userDomain.email,
                     token = token,
                     username = userDomain.username,
-                    bio = userDomain.userDetail?.bio ?: "Default Bio",
-                    image = userDomain.userDetail?.image ?: "Default Image",
+                    bio = userDomain.userDetail?.bio,
+                    image = userDomain.userDetail?.image,
                 )
             )
         )
@@ -51,8 +51,8 @@ class UsersControllerImpl(
                     email = userDomain.email,
                     token= token,
                     username = userDomain.username,
-                    bio = userDomain.userDetail?.bio ?: "Default Bio",
-                    image = userDomain.userDetail?.image ?: "Default Image",
+                    bio = userDomain.userDetail?.bio,
+                    image = userDomain.userDetail?.image,
                 )
             )
         )
