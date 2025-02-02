@@ -1,5 +1,9 @@
 package io.github.baekchan.user.entity
 
+import io.github.baekchan.user.specification.EmailAtSpecification
+import io.github.baekchan.user.specification.EmailDomainSpecification
+import io.github.baekchan.user.specification.UsernameBlankSpecification
+import io.github.baekchan.user.specification.applySpecification
 import io.github.baekchan.user.vo.UserDetail
 
 data class UserDomain (
@@ -10,19 +14,31 @@ data class UserDomain (
     var userDetail: UserDetail? = null
 ) {
 
-    fun changeEmail(email: String): UserDomain {
-        return this.copy(email = email)
-    }
+    fun update(
+        email: String? = null,
+        username: String? = null,
+        password: String? = null,
+        bio: String? = null,
+        image: String? = null
+    ): UserDomain {
+        val currentDetail = userDetail // ✅ 스마트 캐스트를 위한 임시 변수
 
-
-    fun changeUsername(username: String): UserDomain {
-        require(username.isNotBlank()) { "Username cannot be empty" }
-        return this.copy(username = username)
-    }
-
-    fun changePassword(password: String): UserDomain {
-        require(password.length >= 6) { "Password must be at least 6 characters long" }
-        return this.copy(password = password)
+        return copy(
+            email = email?.applySpecification(EmailAtSpecification and EmailDomainSpecification) ?: this.email,
+            username = username?.applySpecification(UsernameBlankSpecification) ?: this.username,
+            password = password ?: this.password,
+            userDetail = if (bio != null || image != null) {
+                currentDetail?.copy(
+                    bio = bio ?: currentDetail.bio,
+                    image = image ?: currentDetail.image
+                ) ?: UserDetail(
+                    bio = bio ?: "",
+                    image = image ?: ""
+                )
+            } else {
+                currentDetail
+            }
+        )
     }
 
 }
