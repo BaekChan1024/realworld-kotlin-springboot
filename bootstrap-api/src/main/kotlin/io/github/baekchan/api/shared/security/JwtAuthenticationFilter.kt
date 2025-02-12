@@ -22,7 +22,7 @@ class JwtAuthenticationFilter(
     ) {
         val authHeader: String? = request.getHeader("Authorization")
 
-        if (authHeader.doesNotContainBearerToken()) {
+        if (authHeader.doesNotContainToken()) {
             filterChain.doFilter(request, response)
             return
         }
@@ -31,7 +31,7 @@ class JwtAuthenticationFilter(
         val id = tokenValidator.extractId(jwtToken)
 
         if (id != null && SecurityContextHolder.getContext().authentication == null) {
-            val foundUser = userDetailsService.loadUserByUsername(id)
+            val foundUser = userDetailsService.loadUserById(id)
             updateContext(foundUser, request, jwtToken)
 //            if (tokenValidator.isValid(jwtToken, foundUser))
 
@@ -39,8 +39,8 @@ class JwtAuthenticationFilter(
         }
     }
 
-    private fun String?.doesNotContainBearerToken() =
-        this == null || !this.startsWith("Bearer ")
+    private fun String?.doesNotContainToken() =
+        this == null
 
     private fun String.extractTokenValue() =
         this.substringAfter("Bearer ")
