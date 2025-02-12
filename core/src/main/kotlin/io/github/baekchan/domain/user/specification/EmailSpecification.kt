@@ -1,4 +1,4 @@
-package io.github.baekchan.domain.specification
+package io.github.baekchan.domain.user.specification
 
 object EmailAtSpecification : Specification<String> {
 

@@ -1,7 +1,7 @@
 package io.github.baekchan.framework.user.adapter
 
-import io.github.baekchan.domain.entity.UserDomain
-import io.github.baekchan.domain.entity.UserId
+import io.github.baekchan.domain.user.entity.UserDomain
+import io.github.baekchan.domain.user.entity.UserId
 import io.github.baekchan.application.user.port.out.UserQueryOutPort
 import io.github.baekchan.framework.user.repository.UserRepository
 import org.springframework.stereotype.Component

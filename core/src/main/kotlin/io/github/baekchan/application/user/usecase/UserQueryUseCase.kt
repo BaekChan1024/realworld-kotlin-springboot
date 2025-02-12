@@ -1,7 +1,7 @@
 package io.github.baekchan.application.user.usecase
 
-import io.github.baekchan.domain.entity.UserDomain
-import io.github.baekchan.domain.entity.UserId
+import io.github.baekchan.domain.user.entity.UserDomain
+import io.github.baekchan.domain.user.entity.UserId
 
 interface UserQueryUseCase {
 

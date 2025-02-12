@@ -3,7 +3,7 @@ package io.github.baekchan.api.user.controller
 import com.io.github.framework.api.controller.UsersController
 import com.io.github.framework.api.controller.models.*
 import io.github.baekchan.api.shared.security.AuthenticationService
-import io.github.baekchan.domain.entity.UserDomain
+import io.github.baekchan.domain.user.entity.UserDomain
 import io.github.baekchan.application.user.usecase.UserCommandUseCase
 import io.github.baekchan.application.user.usecase.UserQueryUseCase
 import org.springframework.http.ResponseEntity

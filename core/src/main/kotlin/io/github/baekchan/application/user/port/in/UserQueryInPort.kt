@@ -1,7 +1,7 @@
 package io.github.baekchan.application.user.port.`in`
 
-import io.github.baekchan.domain.entity.UserDomain
-import io.github.baekchan.domain.entity.UserId
+import io.github.baekchan.domain.user.entity.UserDomain
+import io.github.baekchan.domain.user.entity.UserId
 import io.github.baekchan.application.user.port.out.UserQueryOutPort
 import io.github.baekchan.application.user.usecase.UserQueryUseCase
 import org.springframework.stereotype.Component

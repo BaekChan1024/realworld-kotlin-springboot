@@ -1,6 +1,6 @@
 package io.github.baekchan.api.shared.security
 
-import io.github.baekchan.domain.entity.UserId
+import io.github.baekchan.domain.user.entity.UserId
 import io.github.baekchan.application.user.usecase.UserQueryUseCase
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
