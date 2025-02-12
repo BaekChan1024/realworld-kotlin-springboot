@@ -7,8 +7,7 @@ bootJar.enabled = false
 jar.enabled = true
 
 dependencies {
-    implementation(project(":domain"))
-    implementation(project(":application"))
+    implementation(project(":core"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.mysql:mysql-connector-j:9.1.0")

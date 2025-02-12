@@ -61,8 +61,8 @@ tasks.register<Copy>("copyOasToSwagger") {
 
 dependencies {
 
-    implementation(project(":domain"))
-    implementation(project(":application"))
+    implementation(project(":core"))
+
     implementation(project(":framework-sql"))
 
     implementation ("org.springframework.boot:spring-boot-starter-security")

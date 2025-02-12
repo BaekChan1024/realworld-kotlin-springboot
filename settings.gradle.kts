@@ -11,7 +11,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "realworld"
 
-include("domain")
-include("application")
+include("core")
 include("framework-sql")
 include("bootstrap-api")

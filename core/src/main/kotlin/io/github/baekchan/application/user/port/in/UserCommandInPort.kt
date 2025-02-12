@@ -1,0 +1,23 @@
+package io.github.baekchan.application.user.port.`in`
+
+import io.github.baekchan.domain.entity.UserDomain
+import io.github.baekchan.domain.entity.UserId
+import io.github.baekchan.application.user.port.out.UserCommandOutPort
+import io.github.baekchan.application.user.usecase.UserCommandUseCase
+import org.springframework.stereotype.Component
+
+@Component
+class UserCommandInPort(val outputPort: UserCommandOutPort): UserCommandUseCase {
+
+    override fun register(user: UserDomain): UserId {
+        return outputPort.save(user)
+    }
+
+    override fun update(user: UserDomain) {
+        TODO("Not yet implemented")
+    }
+
+    override fun delete(user: UserDomain) {
+        TODO("Not yet implemented")
+    }
+}
