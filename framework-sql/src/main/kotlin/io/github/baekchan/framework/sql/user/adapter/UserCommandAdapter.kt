@@ -1,8 +1,8 @@
-package io.github.baekchan.framework.user.adapter
+package io.github.baekchan.framework.sql.user.adapter
 
-import io.github.baekchan.framework.user.repository.UserRepository
+import io.github.baekchan.framework.sql.user.repository.UserRepository
 import io.github.baekchan.domain.user.entity.UserDomain
-import io.github.baekchan.framework.user.entity.UserEntity
+import io.github.baekchan.framework.sql.user.entity.UserEntity
 import io.github.baekchan.domain.user.entity.UserId
 import io.github.baekchan.application.user.port.out.UserCommandOutPort
 import org.springframework.stereotype.Component
@@ -16,7 +16,7 @@ class UserCommandAdapter(val userRepository: UserRepository): UserCommandOutPort
             UserEntity(
             email = user.email,
             password = user.password,
-            username = user.username,
+            username = user.userDetail.username,
         )
         ).id)
     }
@@ -26,12 +26,12 @@ class UserCommandAdapter(val userRepository: UserRepository): UserCommandOutPort
             UserEntity(
                 email = user.email,
                 password = user.password,
-                username = user.username,
+                username = user.userDetail.username,
             )
         )
     }
 
-    override fun delete(user: UserDomain) {
+    override fun delete(userId: UserId) {
         TODO("Not yet implemented")
     }
 }

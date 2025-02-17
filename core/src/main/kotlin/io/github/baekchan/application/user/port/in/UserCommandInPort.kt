@@ -17,7 +17,7 @@ class UserCommandInPort(val outputPort: UserCommandOutPort): UserCommandUseCase 
         outputPort.update(user)
     }
 
-    override fun delete(user: UserDomain) {
+    override fun delete(userId: UserId) {
         TODO("Not yet implemented")
     }
 }

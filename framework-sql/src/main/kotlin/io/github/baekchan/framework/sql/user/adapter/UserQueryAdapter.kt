@@ -1,9 +1,10 @@
-package io.github.baekchan.framework.user.adapter
+package io.github.baekchan.framework.sql.user.adapter
 
 import io.github.baekchan.domain.user.entity.UserDomain
 import io.github.baekchan.domain.user.entity.UserId
 import io.github.baekchan.application.user.port.out.UserQueryOutPort
-import io.github.baekchan.framework.user.repository.UserRepository
+import io.github.baekchan.domain.user.vo.UserDetail
+import io.github.baekchan.framework.sql.user.repository.UserRepository
 import org.springframework.stereotype.Component
 
 @Component
@@ -15,7 +16,7 @@ class UserQueryAdapter(
         val userEntity = userRepository.findByEmail(email) ?: throw RuntimeException("exception")
         return UserDomain(
             id = UserId(userEntity.id),
-            username = userEntity.username,
+            userDetail = UserDetail(username = userEntity.username),
             password = userEntity.password,
             email = userEntity.email,
         )
@@ -26,7 +27,7 @@ class UserQueryAdapter(
 
         return UserDomain(
             id = UserId(userEntity.id),
-            username = userEntity.username,
+            userDetail = UserDetail(username = userEntity.username),
             password = userEntity.password,
             email = userEntity.email,
         )
@@ -37,7 +38,7 @@ class UserQueryAdapter(
 
         return UserDomain(
             id = UserId(userEntity.id),
-            username = userEntity.username,
+            userDetail = UserDetail(username = userEntity.username),
             password = userEntity.password,
             email = userEntity.email,
         )

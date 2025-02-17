@@ -1,4 +1,4 @@
-package io.github.baekchan.framework.user.config
+package io.github.baekchan.framework.sql.shared.config
 
 import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.context.annotation.ComponentScan
@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @Configuration
 @EnableJpaRepositories(
-    basePackages = ["io.github.baekchan.framework.user.repository"],
+    basePackages = ["io.github.baekchan.framework.sql"],
 )
-@ComponentScan(basePackages = ["io.github.baekchan.framework.user.adapter"])
-@EntityScan(basePackages = ["io.github.baekchan.framework.user.entity"])
+@ComponentScan(basePackages = ["io.github.baekchan.framework.sql"])
+@EntityScan(basePackages = ["io.github.baekchan.framework.sql"])
 class JPAConfig {
 }

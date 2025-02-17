@@ -1,4 +1,4 @@
-package io.github.baekchan.framework.user.entity
+package io.github.baekchan.framework.sql.user.entity
 
 import jakarta.persistence.*
 

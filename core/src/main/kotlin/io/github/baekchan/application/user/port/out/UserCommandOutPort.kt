@@ -9,5 +9,5 @@ interface UserCommandOutPort {
 
     fun update(user: UserDomain)
 
-    fun delete(user: UserDomain)
+    fun delete(userId: UserId)
 }

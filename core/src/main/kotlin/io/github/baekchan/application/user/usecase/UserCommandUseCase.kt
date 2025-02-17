@@ -8,5 +8,5 @@ interface UserCommandUseCase {
 
     fun update(user: UserDomain)
 
-    fun delete(user: UserDomain)
+    fun delete(user: UserId)
 }

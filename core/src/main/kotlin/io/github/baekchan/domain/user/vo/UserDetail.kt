@@ -1,8 +1,9 @@
 package io.github.baekchan.domain.user.vo
 
 data class UserDetail (
-    val bio: String?,
-    val image: String?,
+    val username: String,
+    val bio: String? = null,
+    val image: String? = null,
 ) {
 
 }
